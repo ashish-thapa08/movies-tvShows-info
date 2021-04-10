@@ -5,14 +5,14 @@ let Modal = () => {
     let [check, setCheck] = useState(true);
     const location = useLocation();
     let id = location.state.detail;
-    console.log(id);
+    //console.log(id);
     let [moviedata, setMoviedata] = useState({});
     let Moviedata = async () => {
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=32c2f8b05f0301b51959c90b965a06ba`;
         let moviedata = await fetch(url);
         let dataa = await moviedata.json();
         setMoviedata(dataa);
-        console.log(dataa);
+        //console.log(dataa);
         setCheck(false);
     }
     useEffect(() => {
