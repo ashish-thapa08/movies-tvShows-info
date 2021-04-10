@@ -12,7 +12,7 @@ let Movies = () => {
             let movieurl = "https://api.themoviedb.org/3/movie/popular?api_key=32c2f8b05f0301b51959c90b965a06ba";
             let moviedata = await fetch(movieurl);
             let moviedataa = await moviedata.json();
-            console.log(moviedata);
+            //console.log(moviedata);
             //console.log(moviedataa.results);
             let data = moviedataa.results.map((curval, index) => ({
                 title: curval.title,
