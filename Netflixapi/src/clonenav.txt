@@ -1,0 +1,28 @@
+<Navbar variant="dark">
+          <Navbar.Brand>
+            <img
+              src={Logo}
+              width="60"
+              height="38"
+              className="d-inline-block align-top mt-2"
+              alt="React Bootstrap logo"
+            />
+            <Link className="navbar-brand ml-2" exact to="/">Home</Link>
+          </Navbar.Brand>
+          <NavDropdown title="TV Shows" id="basic-nav-dropdown">
+            <Link exact to="/populartvshows" className="ml-3 text-dark">Popular</Link><br />
+            <Link exact to="/topratedtvshows" className="ml-3 text-dark">Top Rated</Link>
+          </NavDropdown>
+          <form className="form-inline my-2 my-lg-0 ml-auto">
+            <input onChange={Input} value={search} className="form-control mr-sm-2" type="search" placeholder="Search Movies or Tvshows..." aria-label="Search" />
+            {check === false ? (
+              <div className="list-group">
+                {searchMovie.map((curval, index) => {
+                  return (
+                    <Link onClick={Searchh} exact to={{ pathname: `/${curval.title}/${curval.id}/search`, state: { id: curval.id, media: curval.mediaType } }}><li className="list-group-item search bg-white text-info" key={index}><img id="movieposter" src={`https://image.tmdb.org/t/p/original/${curval.poster}`} />{curval.title ? `${curval.title} || ` : null} Media Type: {curval.mediaType}</li></Link>
+                  )
+                })}
+              </div>
+            ) : null}
+          </form>
+        </Navbar>
