@@ -25,7 +25,7 @@ let Multisearch = () => {
                     let dataa = await detail.json();
                     settvShow(dataa);
                     setCheck(false);
-                    console.log(dataa);
+                    //console.log(dataa);
                 }
                 catch (err) {
                     alert('Something Wrong!!! Refresh it:)');
@@ -69,7 +69,7 @@ let Multisearch = () => {
                     let dataa = await moviedata.json();
                     setMovies(dataa);
                     setCheck(false);
-                    console.log(dataa);
+                    //console.log(dataa);
                 }
                 catch (err) {
                     alert('Something Wrong!!! Refresh it:)');
@@ -79,7 +79,7 @@ let Multisearch = () => {
             }
             let Similarmovie = async () => {
                 try {
-                    console.log(id);
+                    //console.log(id);
                     let url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=32c2f8b05f0301b51959c90b965a06ba&language=en-US&page=1}`
                     let moviedata = await fetch(url);
                     let dataa = await moviedata.json();
