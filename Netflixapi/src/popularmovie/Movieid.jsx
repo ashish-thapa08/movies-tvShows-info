@@ -12,7 +12,7 @@ let Modal = () => {
         let moviedata = await fetch(url);
         let dataa = await moviedata.json();
         setMoviedata(dataa);
-        console.log(dataa);
+        //console.log(dataa);
         setCheck(false);
     }
     useEffect(() => {

@@ -25,7 +25,7 @@ let Multisearch = () => {
                     let dataa = await detail.json();
                     settvShow(dataa);
                     setCheck(false);
-                    console.log(dataa);
+                    //console.log(dataa);
                 }
                 catch (err) {
                     alert('Something Wrong!!! Refresh it:)');
@@ -69,7 +69,7 @@ let Multisearch = () => {
                     let dataa = await moviedata.json();
                     setMovies(dataa);
                     setCheck(false);
-                    console.log(dataa);
+                    //console.log(dataa);
                 }
                 catch (err) {
                     alert('Something Wrong!!! Refresh it:)');

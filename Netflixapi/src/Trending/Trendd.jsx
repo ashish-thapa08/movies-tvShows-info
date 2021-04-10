@@ -29,7 +29,7 @@ let Trendd = () => {
             let url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=32c2f8b05f0301b51959c90b965a06ba&language=en-US&page=1}`
             let moviedata = await fetch(url);
             let dataa = await moviedata.json();
-            console.log(dataa.results);
+            //console.log(dataa.results);
             let data = dataa.results.map((curval, index) => ({
                 title: curval.title,
                 value: curval.id,
@@ -39,7 +39,7 @@ let Trendd = () => {
             setCheck(false);
         }
         catch (err) {
-            console.log(err)
+            //console.log(err)
             alert(`Page Not Found!!! Refresh it ^_^`)
             history.push('/');
         }

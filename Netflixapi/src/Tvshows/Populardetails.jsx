@@ -13,7 +13,7 @@ let Populartvdetail = () => {
             let url = `https://api.themoviedb.org/3/tv/${id}?api_key=32c2f8b05f0301b51959c90b965a06ba&language=en-US}`;
             let detail = await fetch(url);
             let dataa = await detail.json();
-            console.log(dataa);
+            //console.log(dataa);
             setPopulartvdetail(dataa);
             setLoading(false);
         }
