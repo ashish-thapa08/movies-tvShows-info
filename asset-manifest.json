@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/movies-tvShows-info/static/css/main.465f4249.chunk.css",
-    "main.js": "/movies-tvShows-info/static/js/main.b86cec1f.chunk.js",
-    "main.js.map": "/movies-tvShows-info/static/js/main.b86cec1f.chunk.js.map",
+    "main.css": "/movies-tvShows-info/static/css/main.c03c9800.chunk.css",
+    "main.js": "/movies-tvShows-info/static/js/main.2bdd6b4e.chunk.js",
+    "main.js.map": "/movies-tvShows-info/static/js/main.2bdd6b4e.chunk.js.map",
     "runtime-main.js": "/movies-tvShows-info/static/js/runtime-main.b2386bef.js",
     "runtime-main.js.map": "/movies-tvShows-info/static/js/runtime-main.b2386bef.js.map",
     "static/css/2.5d7c8124.chunk.css": "/movies-tvShows-info/static/css/2.5d7c8124.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.8ad13a9d.chunk.js.map": "/movies-tvShows-info/static/js/3.8ad13a9d.chunk.js.map",
     "index.html": "/movies-tvShows-info/index.html",
     "static/css/2.5d7c8124.chunk.css.map": "/movies-tvShows-info/static/css/2.5d7c8124.chunk.css.map",
-    "static/css/main.465f4249.chunk.css.map": "/movies-tvShows-info/static/css/main.465f4249.chunk.css.map",
+    "static/css/main.c03c9800.chunk.css.map": "/movies-tvShows-info/static/css/main.c03c9800.chunk.css.map",
     "static/js/2.20760c9a.chunk.js.LICENSE.txt": "/movies-tvShows-info/static/js/2.20760c9a.chunk.js.LICENSE.txt",
     "static/media/aboutus.966f5680.jpg": "/movies-tvShows-info/static/media/aboutus.966f5680.jpg",
     "static/media/logo.6ce24c58.svg": "/movies-tvShows-info/static/media/logo.6ce24c58.svg",
@@ -22,7 +22,7 @@
     "static/js/runtime-main.b2386bef.js",
     "static/css/2.5d7c8124.chunk.css",
     "static/js/2.20760c9a.chunk.js",
-    "static/css/main.465f4249.chunk.css",
-    "static/js/main.b86cec1f.chunk.js"
+    "static/css/main.c03c9800.chunk.css",
+    "static/js/main.2bdd6b4e.chunk.js"
   ]
 }
