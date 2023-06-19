@@ -12,9 +12,33 @@ let Popular = () => {
     return axios.get(url).then(response => response.data.results)
 }
 let Movies = () => {
+<<<<<<< HEAD
     let [theme, setTheme] = useContext(Themee);
     let { isLoading, data, isError, error } = useQuery('popular-movie', Popular);
     console.log({ isLoading, data });
+=======
+    let [movie, setMovie] = useState([]);
+    let [check, setCheck] = useState(true);
+    let Moviedata = async () => {
+        try {
+            let movieurl = "https://api.themoviedb.org/3/movie/popular?api_key=32c2f8b05f0301b51959c90b965a06ba";
+            let moviedata = await fetch(movieurl);
+            let moviedataa = await moviedata.json();
+            let data = moviedataa.results.map((curval, index) => ({
+                title: curval.title,
+                value: curval.id,
+                overview: curval.overview,
+                poster: curval.poster_path,
+                key: index
+            }));
+            setMovie(data);
+            setCheck(false);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+>>>>>>> 49368b8b6229a90792dd6d11bc3772b8ff53bb06
     const options = {
         responsiveClass: true,
         nav: true,
