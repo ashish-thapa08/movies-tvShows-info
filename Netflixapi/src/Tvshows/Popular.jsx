@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Loading from '../Loading';
 import { Link } from "react-router-dom";
+import { Themee } from '../Theme';
 let Popular = () => {
     let [populartv, setPopulartv] = useState([]);
     let [loading, setLoading] = useState(true);
+    let [theme, setTheme] = useContext(Themee);
     let Tvpopular = async () => {
         try {
             let url = "https://api.themoviedb.org/3/tv/popular?api_key=32c2f8b05f0301b51959c90b965a06ba&language=en-US&page=1";
@@ -37,11 +39,11 @@ let Popular = () => {
                         return (
                             <>
                                 <div className="col-md-3 col-lg-3 col-6">
-                                    <div className="card border-0 popular ml-3" key={curval.tvid}>
+                                    <div className={theme ? `card border-0 popular ml-3 theme` : `card border-0 popular ml-3 themee`} key={curval.tvid}>
                                         <img className="img-fluid" src={`https://image.tmdb.org/t/p/original/${curval.poster}`} />
                                         <div className="card-body">
                                             <h5 className="card-title mb-2">{curval.name}</h5><span></span>
-                                            <Link exact to={{ pathname: `${curval.name}/${curval.tvid}/TvShows`, state: curval.tvid }}><button className="btn btn-outline-light">View Detail</button></Link>
+                                            <Link exact to={{ pathname: `${curval.name}/${curval.tvid}/TvShows`}}><button className={`btn ${theme ? 'btn-outline-light' : 'btn-outline-info'}`}>View Detail</button></Link>
                                         </div>
                                     </div>
                                 </div>

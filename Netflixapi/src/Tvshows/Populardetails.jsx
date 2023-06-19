@@ -1,101 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory, useLocation } from "react-router-dom";
+import axios from 'axios';
+import React, { useEffect, useContext } from 'react';
+import { useQuery } from 'react-query';
+import { Link, useParams } from "react-router-dom";
 import Loading from '../Loading';
+import Pagenotfound from '../Page Not Found/pagenotfound';
+import { Themee } from '../Theme';
 let Populartvdetail = () => {
-    let [populartvdetail, setPopulartvdetail] = useState({});
-    let history = useHistory();
-    const location = useLocation();
-    let id = location.state;
-    let [loading, setLoading] = useState(true);
-    let [similar, setSimilar] = useState([]);
-    let Populardetail = async () => {
-        try {
-            let url = `https://api.themoviedb.org/3/tv/${id}?api_key=32c2f8b05f0301b51959c90b965a06ba&language=en-US}`;
-            let detail = await fetch(url);
-            let dataa = await detail.json();
-            //console.log(dataa);
-            setPopulartvdetail(dataa);
-            setLoading(false);
-        }
-        catch (err) {
-            if (err) throw err;
-            alert(`Many Traffic!!! Refresh it ^_^`)
-            history.push('/');
-        }
+    let [theme, setTheme] = useContext(Themee);
+    let { showsname, showsid } = useParams();
+    let Populardetail = () => {
+        let url = `https://api.themoviedb.org/3/tv/${showsid}?api_key=32c2f8b05f0301b51959c90b965a06ba&language=en-US}`;
+        return axios.get(url).then(response => response.data)
     }
-    let Similartvshows = async () => {
-        try {
-            if (id) {
-                let url = `https://api.themoviedb.org/3/tv/${id}/similar?api_key=32c2f8b05f0301b51959c90b965a06ba&language=en-US&page=1}`;
-                let similar = await fetch(url);
-                let dataa = await similar.json();
-                let data = dataa.results.map((curval) => ({
-                    tvid: curval.id,
-                    name: curval.original_name,
-                    poster: curval.poster_path
-                }));
-                setSimilar(data);
-                window.scrollTo(0, 0);
-            }
-            else {
-                alert('Something Wrong!!! Page Not Found');
-            }
-        }
-        catch (err) {
-            if (err) throw err;
-            alert(`Many Traffic!!! Refresh it ^_^`)
-            history.push('/');
-        }
+    let Similartvshows = () => {
+        let url = `https://api.themoviedb.org/3/tv/${showsid}/similar?api_key=32c2f8b05f0301b51959c90b965a06ba&language=en-US&page=1}`;
+        return axios.get(url).then(response => response.data.results)
     }
+    let showDetail = useQuery('shows-details', Populardetail)
+    let showSimilar = useQuery('shows-similar', Similartvshows)
+    console.log({ showDetail, showSimilar });
     useEffect(() => {
-        Populardetail();
-        Similartvshows();
-    }, [id]);
-    if (loading) {
+        showDetail.refetch();
+        showSimilar.refetch();
+        window.scrollTo({ top: 0, right: 0, behavior: 'smooth' });
+    }, [showsid])
+    if (showDetail.isLoading || showSimilar.isLoading) {
         return <Loading />
+    }
+    if (showDetail.isError || showSimilar.isError) {
+        return <Pagenotfound />
     }
     return (
         <>
             <div className="container">
-                {id ? (
-                    <>
-                        <div className="row">
-                            <div className="col-md-6 col-lg-6 col-12">
-                                <img className="imgg" alt="movieimage" src={`https://image.tmdb.org/t/p/original/${populartvdetail.poster_path}`} />
-                            </div>
-                            <div className="col-md-6 col-lg-6 col-12">
-                                <h3>TV Show Title:</h3>
-                                <h5>{populartvdetail.name}</h5><span>Tagline: {populartvdetail.tagline}</span>
-                                <p><span className="overview">Total Number of Season: </span>{populartvdetail.number_of_seasons} || <span>Total Number of Episodes:</span>{populartvdetail.number_of_episodes}</p>
-                                <p id="s3"><span className="overview">Overview: </span>{populartvdetail.overview}</p>
-                                <p><span className="vote">Release Date: </span>{populartvdetail.first_air_date}</p>
-                                <p><span className="vote">Status: </span>{populartvdetail.status}</p>
-                                <p><span className="vote">Vote: </span>{populartvdetail.vote_average}</p>
-                                <Link to={{ pathname: `/TvShows/${populartvdetail.name}/${populartvdetail.id}/seasons`, state: populartvdetail.id }}>View all seasons</Link>
-                            </div>
-                        </div>
-                        <h3 className="mb-3 mt-3">Similar TV Shows</h3>
-                        <div className="row">
-                            {similar.length === 0 ? (<p className="ml-3">Similar TvShows not available!!!</p>) :
-                                similar.map((curval) => {
-                                    return (
-                                        <>
-                                            <div className="col-md-3 col-lg-3 col-6">
-                                                <div className="card border-0 popular ml-3" key={curval.tvid}>
-                                                    <img className="img-fluid" src={`https://image.tmdb.org/t/p/original/${curval.poster}`} />
-                                                    <div className="card-body">
-                                                        <h5 className="card-title mb-2">{curval.name}</h5><span></span>
-                                                        <Link exact to={{ pathname: `/${curval.name}/${curval.tvid}/TvShows`, state: curval.tvid }}><button className="btn btn-outline-light">View Detail</button></Link>
-                                                    </div>
-                                                </div>
+                <div className="row">
+                    <div className="col-md-6 col-lg-6 col-12">
+                        <img className="imgg" alt="seriesimage" src={`https://image.tmdb.org/t/p/original/${showDetail.data.poster_path}`} />
+                    </div>
+                    <div className="col-md-6 col-lg-6 col-12">
+                        <h3>TV Show Title:</h3>
+                        <h5>{showDetail.data.original_name}</h5><span>Tagline: {showDetail.data.tagline}</span>
+                        <p><span className="overview">Total Number of Season: </span>{showDetail.data.number_of_seasons} || <span>Total Number of Episodes:</span>{showDetail.data.number_of_episodes}</p>
+                        <p id="s3"><span className="overview">Overview: </span>{showDetail.data.overview}</p>
+                        <p><span className="vote">Release Date: </span>{showDetail.data.first_air_date}</p>
+                        <p><span className="vote">Status: </span>{showDetail.data.status}</p>
+                        <p><span className="vote">Vote: </span>{showDetail.data.vote_average}</p>
+                        <Link to={{ pathname: `/${showDetail.data.original_name}/${showDetail.data.id}/seasons` }}>View all seasons</Link>
+                    </div>
+                </div>
+                <h3 className="mb-3 mt-3">Similar TV Shows</h3>
+                <div className="row">
+                    {
+                        showSimilar.data.map((curval) => {
+                            return (
+                                <>
+                                    <div className="col-md-3 col-lg-3 col-6">
+                                        <div className={theme ? `card border-0 popular ml-3 theme` : `card border-0 popular ml-3 themee`} key={curval.id}>
+                                            <img className="img-fluid" alt='seriesimage' src={`https://image.tmdb.org/t/p/original/${curval.poster_path}`} />
+                                            <div className="card-body">
+                                                <h5 className="card-title mb-2">{curval.original_name}</h5><span></span>
+                                                <Link exact to={{ pathname: `/${curval.original_name}/${curval.id}/TvShows`, state: curval.id }}><button className={`btn ${theme ? 'btn-outline-light' : 'btn-outline-info'}`}>View Detail</button></Link>
                                             </div>
-                                        </>
-                                    )
-                                })}
-                        </div>
-                    </>
-                ) : (<p>Page Not Found</p>)}
-
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                        })
+                    }
+                </div>
             </div>
         </>
     )
